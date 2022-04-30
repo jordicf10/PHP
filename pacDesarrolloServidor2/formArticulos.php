@@ -98,6 +98,10 @@ if(isset($_GET['Editar'])){
 				<option value="3">JERSEY</option>
 				<option value="4">CHAQUETA</option>
 
+				
+
+				
+
 			</select>
 		<br><br>
 
@@ -158,7 +162,7 @@ if(isset($_GET['Editar'])){
 
 		include "funciones.php";
 
-		/*if(isset($_POST['Anadir'])){
+		if(isset($_POST['Anadir'])){
 			anadirProducto($_POST['Nombre'],$_POST['Coste'],$_POST['Precio'],$_POST['Categoria']);
 			//echo "Producto añadido";
 		}
@@ -173,9 +177,9 @@ if(isset($_GET['Editar'])){
 				echo $columna['Cost'];
 				echo $columna['Price'];
 				echo $columna['CategoryID'];
-			//}
+			}
 
-			}else{
+			/*}else{
 				$ID = "";
 				$campos = [
 					"ProductID" => "",
@@ -214,10 +218,21 @@ if(isset($_GET['Editar'])){
 					}
 				}*/
 
-				if(isset($_POST['Anadir'])){
-					anadirProducto($_POST['Nombre'],$_POST['Coste'],$_POST['Precio'],$_POST['Categoria']);
-					//echo "Producto añadido";
-				}
+				/*if(isset($_POST['Anadir'])){
+					anadirProducto($_POST['Nombre'],$_POST['Coste'],$_POST['Precio'],$_POST['Categoria']);*/
+					/*if (anadirProducto($_POST['Nombre'],$_POST['Coste'],$_POST['Precio'],$_POST['Categoria'])){
+						echo "<h1>Se ha añadido el producto</h1>";
+						echo "<p>" . "Nombre: " . $_POST['Nombre'] . "</p>";
+						echo "<p>" . "Coste: " . $_POST['Coste'] . "</p>";
+						echo "<p>" . "Precio: " . $_POST['Precio'] . "</p>";
+						echo "<p>" . "Categoria: " . $_POST['Categoria'] . "</p>";
+					} else {
+						echo "No se ha podido añadir el producto";
+					}*/
+					
+				//}
+
+				
 
 		if(isset($_GET['Borrar'])){
 			if(isset($_POST['ProductID'])){
@@ -232,6 +247,9 @@ if(isset($_GET['Editar'])){
 			$precio = $_POST['Price'];
 			$categoria = $_POST['CategoryID'];
 			
+
+			
+
 
 			if(isset($_GET['Editar'])){
 				$id = $_GET['Editar'];

@@ -18,17 +18,19 @@
 	<form action="funciones.php" method="post">	
 	<a href='formArticulos.php' name="anade">Añadir producto</a>       <a href='index.php'>Volver</a>
 
-						<!--<form action='formArticulos.php' method='get'>	
+						<!--<form action='formArticulos.php' method='get'>	-->
+						<form action="articulos.php" method="post">
 						<table>
 							<tr>
-								<th name='idForm' value="ID"><a href=''>ID</th>
-								<th name='nombreForm' value="Nombre"><a href=''>Nombre</th>
-								<th name='costeForm' value="Coste"><a href=''>Coste</th>
-								<th name='precioForm' value="Precio"><a href=''>Precio</th>
-								<th name='categoríaForm' value="Categoría"><a href=''>Categoría</th>
+								<th input type='submit' name='idForm' value="idOrden"><input type='hidden' name='idForm' value="idOrden"><a href=''>ID</th>
+								<th input type='submit' name='nombreForm' value="nombreOrden"><input type='hidden' name='nombreForm' value="nombreOrden"><a href=''>Nombre</th>
+								<th input type='submit' name='costeForm' value="costeorden"><input type='hidden' name='costeForm' value="costeorden"><a href=''>Coste</th>
+								<th input type='submit' name='precioForm' value="precioOrden"><input type='hidden' name='precioForm' value="precioOrden"><a href=''>Precio</th>
+								<th input type='submit' name='categoriaForm' value="categoriaOrden"><input type='hidden' name='categoriaForm' value="categoriaOrden"><a href=''>Categoría</th>
 								<th>Acciones</th>
 								</tr>
-						</form>-->
+						</form>
+						
 					
 		<!--<label for="ID">ID</label><input type="text" id="id" name="Id">
 		<br><br>
@@ -56,19 +58,25 @@
 	<?php 
         $orden = "";
 
-		if(!isset($_GET['idForm'])){
+		if(isset($_POST['idForm'])){
 			$orden = "idOrden";
-		}else if(!isset($_GET['nombreOrden'])){
-			$orden = "Nombre";
-		}else if(!isset($_GET['costeOrden'])){
-			$orden = "Coste";
-		}else if(!isset($_GET['precioOrden'])){
-			$orden = "Precio";
-		}else if(!isset($_GET['categoriaOrden'])){
-			$orden = "Categoria";
+			//getProductos($orden);
+		}else if(isset($_POST['nombreForm'])){
+			$orden = "nombreOrden";
+			//getProductos($orden);
+		}else if(isset($_POST['costeForm'])){
+			$orden = "costeOrden";
+			//getProductos($orden);
+		}else if(isset($_POST['precioform'])){
+			$orden = "precioOrden";
+			//getProductos($orden);
+		}else if(isset($_POST['categoriaForm'])){
+			$orden = "categoriaOrden";
+			//getProductos($orden);
 		}
 		
-			pintaProductos($orden);
+		pintaProductos($orden);
+			
 		
 	
 	?>

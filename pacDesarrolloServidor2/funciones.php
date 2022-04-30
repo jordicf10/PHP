@@ -27,14 +27,14 @@
 				foreach ($categorias as $columna) {
 						echo "<tr>\n
 							<form action='articulos.php' method='post'>	 
-								<td><option value" . $columna['CategoryID'] . "</td>\n    
+								<td><option value" . $columna['Name'] . "</td>\n    
 							</form>
 						</tr>\n";
-					/*if ($defecto == $categorias['CategoryID']){
-						echo "<option selected='true' value='" . $fila["Name"] . "'>" . $fila["CategoryID"] . "</option>";
+					/*if ($defecto == $categorias['Name']){
+						echo "<option selected='true' value='" . $columna["Name"] . "'>" . $fila["Name"] . "</option>";
 					
 				}else{
-					echo "<option value='" . $fila=["Name"] . "'>" . $fila["CategoryID"] . "</option>";
+					echo "<option value='" . $columna["Name"] . "'>" . $columna["Name"] . "</option>";
 				}*/
 			}
 
@@ -102,50 +102,14 @@
 		// Completar...	
 		$productos = getProductos($orden);
 
-		$conexion = crearConexion();
+		/*$conexion = crearConexion();
 		$myquery = "SELECT * FROM product";
-		$consulta = mysqli_query($conexion, $myquery);
+		$consulta = mysqli_query($conexion, $myquery);*/
 
 		if(is_string($productos)) {
 			echo $productos;
-		}else if(mysqli_num_rows($consulta) > 0){    //Para saber el número de filas que devuelve. Si es mayor a 0 está bien, si no, la consulta no está bien hecha
-			$fila = mysqli_fetch_assoc($consulta);
-			/*echo "<table>\n
-					<tr>\n
-						<form action='formArticulos.php' method='post'>	
-							<th><input type='hidden' name='ID' value='" . $fila["ProductID"] . "'><a href=''>ID</th>
-							<th><input type='hidden' name='Nombre' value='" . $fila["Name"] . "'><a href=''>Nombre</th>
-							<th><input type='hidden' name='Coste' value='" . $fila["Cost"] . "'><a href=''>Coste</th>
-							<th><input type='hidden' name='Precio' value='" . $fila["Price"] . "'><a href=''>Precio</th>
-							<th><input type='hidden' name='Categoría' value='" . $fila["CategoryID"] . "'><a href=''>Categoría</th>
-							<th>Acciones</th>
-						</form>
-					</tr>\n";*/
-					echo "<table>\n
-					<tr>\n
-
-						<form action='articulos.php' method='post'>	
-							<th name='idForm' value='idOrden'><a href=''>ID</th>
-							<th name='nombreForm' value='nombreOrden'><a href=''>Nombre</th>
-							<th name='costeForm' value='costeOrden'><a href=''>Coste</th>
-							<th name='precioForm' value='precioOrden'><a href=''>Precio</th>
-							<th name='categoriaForm' value='categoriaOrden'><a href=''>Categoría</th>
-							<th>Acciones</th>
-						</form>
-					</tr>\n";
-
-					/*echo "<table>\n
-					<tr>\n
-						<form action='formArticulos.php' method='post'>	
-							<th><input type='hidden' name='ID' value=''><a href=''>ID</th>
-							<th><input type='hidden' name='Nombre' value=''><a href=''>Nombre</th>
-							<th><input type='hidden' name='Coste' value=''><a href=''>Coste</th>
-							<th><input type='hidden' name='Precio' value=''><a href=''>Precio</th>
-							<th><input type='hidden' name='Categoría' value=''><a href=''>Categoría</th>
-							<th>Acciones</th>
-						</form>
-					</tr>\n";*/
-
+		}else{ /*if(mysqli_num_rows($consulta) > 0){    //Para saber el número de filas que devuelve. Si es mayor a 0 está bien, si no, la consulta no está bien hecha
+			$fila = mysqli_fetch_assoc($consulta);*/
 					
 			//if($fila['Autenticación'] == 1){
 				
@@ -166,11 +130,12 @@
 									"/*<td><a href='formArticulos.php?borrar = " . $columna["ProductID"] . "; ?>'>Borrar</td><form action=formArticulos.php method='post><input type='hidden' name='Borrar' value='". $columna["ProductID"] . "'>*/."
 								</form>
 							</tr>\n";
-						}
+						};
 					}
+
+					
 				
-			
-		
+
 			/*}else{               
 					while($fila = mysqli_fetch_assoc($productos)){
 						foreach ($productos as $columna) {                         
@@ -188,13 +153,14 @@
 			}
 		echo "</table>";*/
 			
-		};
+		
+	
 //cerrarConexion($conexion);
 	//if($orden == "ID"){
-		crearConexion($conexion);
+		//crearConexion($conexion);
 		//$myquery = "SELECT ProductID, Name, Cost, Price, CategoryID FROM product";
 	
-		while ($fila = mysqli_fetch_assoc($productos)){
+		/*while ($fila = mysqli_fetch_assoc($productos)){
 	if($orden == "idForm"){
 		//$consultaOrden = "SELECT ProductID, Name, Cost, Price, CategoryID FROM product ORDER BY ProductID DESC";
 		$consultaOrden = "SELECT ProductID, Name, Cost, Price, CategoryID FROM product ORDER BY ProductID DESC";
@@ -213,12 +179,12 @@
 	if(mysqli_num_rows($myquery) > 0){    //Para saber el número de filas que devuelve. Si es mayor a 0 está bien, si no, la consulta no está bien hecha
 		return $myquery;			
 	}else{
-		echo "No hay nada en la lista de productos ";
+		echo "No hay nada en la lista de productos ";*/
 	}
 }
 
-	cerrarConexion($conexion);
-}
+		
+
 
 
 	

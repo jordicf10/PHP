@@ -145,13 +145,15 @@
 	function getCategorias() {
 		// Completar...	
 		$conexion = crearConexion();
-		$myquery = "SELECT CategoryID FROM product";  //AQUÍ TAMBÉ HAIG DE FER UN INNER JOIN
+		//$myquery = "SELECT Category FROM product";  //AQUESTA ÇES LA QUE FUNCIONA AMB EL NÚMERO
+		//$myquery = "SELECT * FROM product pr INNER JOIN category ca ON pr.CategoryID = ca.CategoryID";   //CREC QUE ÉS LA BONA, A PHP MYADMIN SURT BÉ!!!!
+		$myquery = "SELECT * FROM category ca INNER JOIN product pr ON ca.CategoryID = pr.CategoryID";    //CREC QUE AQUESTA TAMBÉ FUNCIONA, A PHP MYADMIN SURT BÉ!!!!
 		//$myquery = "SELECT * FROM pac3_daw.product su INNER JOIN pac3_daw.category au ON au.Name = su.CategoryID";
 		/*$nombre = $_POST['Name'];
 		$categoria = $_POST['CategoryID'];
-		$myquery = "SELECT Name, CategoryID FROM pac3_daw.product su INNER JOIN pac3_daw.category au ON au.Name = su.CategoryID WHERE Name = '$nombre' AND CategoryID = '$categoria'";*/
-		//$myquery = "SELECT CategoryID FROM pac3_daw.product ca INNER JOIN pac3_daw.category na ON na.Name = ca.CategoryID";
-		//"SELECT * FROM pac3_daw.user su INNER JOIN pac3_daw.setup au ON au.SuperAdmin = su.UserID WHERE Fullname = '$nombre' AND Email = '$correo'";
+		$myquery = "SELECT Name, CategoryID FROM pac3_daw.product su INNER JOIN pac3_daw.category au ON au.Name = su.CategoryID WHERE Name = '$nombre' AND CategoryID = '$categoria'";
+		$myquery = "SELECT CategoryID FROM pac3_daw.product ca INNER JOIN pac3_daw.category na ON na.Name = ca.CategoryID";
+		"SELECT * FROM pac3_daw.user su INNER JOIN pac3_daw.setup au ON au.SuperAdmin = su.UserID WHERE Fullname = '$nombre' AND Email = '$correo'";*/
 		$consulta = mysqli_query($conexion, $myquery);
 
 		if(mysqli_num_rows($consulta) > 0){    //Para saber el número de filas que devuelve. Si es mayor a 0 está bien, si no, la consulta no está bien hecha
@@ -207,7 +209,7 @@
 		// Completar...	
 		$conexion = crearConexion();
 		//$myquery = "SELECT * FROM product ORDER BY $orden";
-		$myquery = "SELECT * FROM product";
+		$myquery = "SELECT * FROM product ORDER BY ProductID ASC";
 		$consulta = mysqli_query($conexion, $myquery);
 
 		if(mysqli_num_rows($consulta) > 0){    //Para saber el número de filas que devuelve. Si es mayor a 0 está bien, si no, la consulta no está bien hecha
@@ -218,27 +220,30 @@
 			echo "No se puede leer en la tabla product";
 		}
 		
-		cerrarConexion($conexion);
-
-		$conexion = crearConexion($conexion);
+		
 		$consultaOrden = "";
+		$myquery = "";
 
-		if($orden == "idForm"){
-			//$consultaOrden = "SELECT ProductID, Name, Cost, Price, CategoryID FROM product ORDER BY ProductID DESC";
+		if($orden == "idOrden"){
 			$consultaOrden = "SELECT * FROM product ORDER BY ProductID DESC";
-		}else if($orden == "nombreForm"){
+			$myquery = mysqli_query($conexion, $consultaOrden);
+		}else if($orden == "nombreOrden"){
 			$consultaOrden = "SELECT * FROM product ORDER BY Name DESC";
-		}else if($orden == "costeForm"){
+			$myquery = mysqli_query($conexion, $consultaOrden);
+		}else if($orden == "costeOrden"){
 			$consultaOrden = "SELECT * FROM product ORDER BY Cost DESC";
-		}else if($orden == "precioForm"){
+			$myquery = mysqli_query($conexion, $consultaOrden);
+		}else if($orden == "precioOrden"){
 			$consultaOrden = "SELECT * FROM product ORDER BY Price DESC";
-		}else if($orden == "categoriaForm"){
+			$myquery = mysqli_query($conexion, $consultaOrden);
+		}else if($orden == "categoriaOrden"){
 			$consultaOrden = "SELECT * FROM product ORDER BY CategoryID DESC";
+			$myquery = mysqli_query($conexion, $consultaOrden);
 		}
 		
-		$myquery = mysqli_query($conexion, $consultaOrden);
+		//$myquery = mysqli_query($conexion, $consultaOrden);
 	
-		if(mysqli_num_rows($myquery) > 0){    //Para saber el número de filas que devuelve. Si es mayor a 0 está bien, si no, la consulta no está bien hecha
+		if($myquery){    //Para saber el número de filas que devuelve. Si es mayor a 0 está bien, si no, la consulta no está bien hecha
 			return $myquery;			
 		}else{
 			echo "No hay nada en la lista de productos ";
@@ -267,45 +272,24 @@
 				//if(mysqli_num_rows($consulta) > 0){    //Para saber el número de filas que devuelve. Si es mayor a 0 está bien, si no, la consulta no está bien hecha
 					if($consulta){ 
 					//echo "Producto añadido";	
+					echo "<h3>Se ha añadido el producto</h3>";
+					echo "<p>" . "Nombre: " . $_POST['Nombre'] . "</p>";
+					echo "<p>" . "Coste: " . $_POST['Coste'] . "</p>";
+					echo "<p>" . "Precio: " . $_POST['Precio'] . "</p>";
+					echo "<p>" . "Categoria: " . $_POST['Categoria'] . "</p>";
 					return $consulta;
 				}else{                                        //He puesto el datos incorrectos en la función añadida esAdminONo()
-					echo "Rellena todos los campos para añadir un producto";
-					//echo "No se ha podido añadir el producto";
+					
+					echo "No se ha podido añadir el producto";
 				
 				}
 			}
-			
-			/*}else{
-				
-			
-			echo "Se ha añadido el producto";
-	}*/
+
 }	
+
 	cerrarConexion($conexion);
 
 }
-		
-			/*if(isset($_POST['añadir'])){
-				if(isset($nombre) && isset($coste) && isset($precio) && isset($categoria)){
-					if($consulta){
-						
-						//echo "Se ha añadido el producto";
-						return $consulta;
-						
-						
-					}else{
-						echo "Rellena todos los campos para añadir un producto";
-					}	
-				}else{
-					echo "No se ha podido añadir el artículo";
-			}
-			}*/
-			
-
-			
-
-	
-
 
 	function borrarProducto($id) {
 		// Completar...	
