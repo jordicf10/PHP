@@ -69,7 +69,7 @@
 								<form action='usuarios.php' method='post'>	 
 									<td>" . $columna['FullName'] . "</td>\n
 									<td>" . $columna['Email'] . "</td>\n
-									<td style= 'background-color: orange'>" . $columna['Enabled'] . "</td>\n     
+									<td class='rojo'>" . $columna['Enabled'] . "</td>\n     
 								</form>
 							</tr>\n";
 						
@@ -112,6 +112,16 @@
 			$fila = mysqli_fetch_assoc($consulta);*/
 					
 			//if($fila['Autenticación'] == 1){
+
+				/*echo "<table>\n
+						<tr>\n
+							<th><a href=formArticulos.php' . name .='idForm' . value='idOrden'></a>ID</th>\n	
+							<th>Nombre</th>\n
+							<th>Coste</th>\n
+							<th>Precio</th>\n
+							<th>Categoria</th>\n
+							<th>Acciones</th>\n
+						</tr>\n";*/
 				
 
 					while($fila = mysqli_fetch_assoc($productos)){
@@ -123,74 +133,17 @@
 									<td>" . $columna['Cost'] . "</td>\n
 									<td>" . $columna['Price'] . "</td>\n
 									<td>" . $columna['CategoryID'] . "</td>\n
-									<td>" . "<a href='formArticulos.php'>Editar</td>\n
-									<td>" . "<a href='formArticulos.php'>Borrar</td>\n
-									"/*<td><a href='formArticulos.php' >Editar</td><form action=formArticulos.php method='post><input type='hidden' name='Editar' value='". $columna["ProductID"] . "'>
-									<td><a href='formArticulos.php' >Editar</td><form action=formArticulos.php method='post><input type='hidden' name='Editar' value='". $columna["ProductID"] . "'>
-									"/*<td><a href='formArticulos.php?borrar = " . $columna["ProductID"] . "; ?>'>Borrar</td><form action=formArticulos.php method='post><input type='hidden' name='Borrar' value='". $columna["ProductID"] . "'>*/."
+									<td>" ?><input type="submit" name="Editar" value="Editar"><a href='formArticulos.php' name="Editar" value="Editar">Editar</a> <?php "</td>\n
+									<td>" ?><input type="submit" name="Borrar" value="Borrar"><a href="formArticulos.php" name="Borrar" value="Borrar">Borrar</a><?php "</td>\n
 								</form>
 							</tr>\n";
-						};
+						}
 					}
-
-					
-				
-
-			/*}else{               
-					while($fila = mysqli_fetch_assoc($productos)){
-						foreach ($productos as $columna) {                         
-							echo "<tr>\n
-									<form action='formArticulos.php' method='post'>	   
-											<td>" . $columna['ProductID'] . "</td>\n
-											<td>" . $columna['Name'] . "</td>\n
-											<td>" . $columna['Cost'] . "</td>\n
-											<td>" . $columna['Price'] . "</td>\n
-											<td>" . $columna['CategoryID'] . "</td>\n
-									</form>
-								</tr>\n";
-						}				
-					}
+				}
 			}
-		echo "</table>";*/
-			
 		
+			?>
+											
 	
-//cerrarConexion($conexion);
-	//if($orden == "ID"){
-		//crearConexion($conexion);
-		//$myquery = "SELECT ProductID, Name, Cost, Price, CategoryID FROM product";
-	
-		/*while ($fila = mysqli_fetch_assoc($productos)){
-	if($orden == "idForm"){
-		//$consultaOrden = "SELECT ProductID, Name, Cost, Price, CategoryID FROM product ORDER BY ProductID DESC";
-		$consultaOrden = "SELECT ProductID, Name, Cost, Price, CategoryID FROM product ORDER BY ProductID DESC";
-	}else if($orden == "nombreForm"){
-		$consultaOrden = "SELECT ProductID, Name, Cost, Price, CategoryID FROM product ORDER BY Name DESC";
-	}else if($orden == "costeForm"){
-		$consultaOrden = "SELECT ProductID, Name, Cost, Price, CategoryID FROM product ORDER BY Cost DESC";
-	}else if($orden == "precioForm"){
-		$consultaOrden = "SELECT ProductID, Name, Cost, Price, CategoryID FROM product ORDER BY Price DESC";
-	}else if($orden == "categoríaForm"){
-		$consultaOrden = "SELECT ProductID, Name, Cost, Price, CategoryID FROM product ORDER BY CategoryID DESC";
-	}
-	
-	$myquery = mysqli_query($conexion, $consultaOrden);
-
-	if(mysqli_num_rows($myquery) > 0){    //Para saber el número de filas que devuelve. Si es mayor a 0 está bien, si no, la consulta no está bien hecha
-		return $myquery;			
-	}else{
-		echo "No hay nada en la lista de productos ";*/
-	}
-}
-
-		
-
-
-
-	
-
-	
-
-
-
-?>
+											<!--
+												a href='formArticulos.php' name='Borrar' value='Borrar-->

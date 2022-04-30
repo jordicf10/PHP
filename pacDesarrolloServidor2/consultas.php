@@ -2,21 +2,8 @@
 
 	include "conexion.php";
 
-	
-	/*session_start();
-	
-
-	$myquery = "SELECT * FROM user WHERE FullName = '$usuario' AND Email = '$correo'";
-	$consulta = mysqli_query($conexion, $myquery);
-
-	if(mysqli_num_rows($consulta) > 0){
-		$fila = mysqli_fetch_assoc($consulta);
-		echo "Hola" . $fila["FullName"];	
-	}else{
-		echo "El usuario no se encuentra en la base de datos";
-	}*/
-
 	function esAdminONo (){
+
 		$conexion = crearConexion();
 		$nombre= $_POST['Nombre'];
 		$correo= $_POST['Correo'];
@@ -30,14 +17,58 @@
 					$fila = mysqli_fetch_assoc($consulta);	
 					if(isset($fila['UserID'])){
 						if($fila['UserID'] == 3){
-							esSuperadmin($_POST["Nombre"],$_POST["Correo"]);					//TOT AIXÒ ÉS PROVISIONAL, CREC QUE NO ÉS ADEQUAT FER UN $fila['UserID]==3 per trobar el superadmin
-						}else{																	//TOT AIXÒ ÉS PROVISIONAL, CREC QUE NO ÉS ADEQUAT FER UN $fila['UserID]==3 per trobar el superadmin
-							tipoUsuario($_POST["Nombre"],$_POST["Correo"]);						//TOT AIXÒ ÉS PROVISIONAL, CREC QUE NO ÉS ADEQUAT FER UN $fila['UserID]==3 per trobar el superadmin
+							if(!isset($_SESSION['FullName'])){    //Si no hemos iniciado sesión se establece a cero
+								$_SESSION['FullName'] = 'FullName';
+								$_SESSION['temporal'] = 0;
+								setcookie($fila['UserID'],$_POST['Nombre'], time() + 3000);
+								esSuperadmin($_POST["Nombre"],$_POST["Correo"]);	
+								echo "<br>Cookie establecida SuperAdmin para " . $_POST['Nombre'];
+								echo "<br>Nueva sesión iniciada<br>";
+							}else{
+								$_SESSION['Fullname'] = null;
+								$_SESSION['temporal'] = time();
+								session_destroy();            // Si iniciamos sesión teniendo otra sesión iniciada se destruirá la primera
+								echo "Sesión cerrada";
+							}
+				
+											//TOT AIXÒ ÉS PROVISIONAL, CREC QUE NO ÉS ADEQUAT FER UN $fila['UserID]==3 per trobar el superadmin
+						}else{	
+							$_SESSION['FullName'] = 'FullName';
+							$_SESSION['temporal'] = 0;
+							setcookie($fila['UserID'],$_POST['Nombre'], time() + 3000);																//TOT AIXÒ ÉS PROVISIONAL, CREC QUE NO ÉS ADEQUAT FER UN $fila['UserID]==3 per trobar el superadmin
+							tipoUsuario($_POST["Nombre"],$_POST["Correo"]);	
+							echo "<br>Cookie establecida Usuario para " . $_POST['Nombre'];
+							echo "<br>Nueva sesión iniciada<br>";						//TOT AIXÒ ÉS PROVISIONAL, CREC QUE NO ÉS ADEQUAT FER UN $fila['UserID]==3 per trobar el superadmin
 						}
+
+						switch($_SESSION['FullName']){
+							case 'FullName':
+								echo "El valor de la variable de sesión es " . $_POST['Nombre'];
+								break;
+	
+							default:
+								echo "La variable de sesión no está definida";
+						}
+
+						/*switch($_SESSION['FullName']){
+							case 'FullName':
+								echo "El valor de la variable de sesión es " . $_POST['Nombre'];
+								break;
+
+							default:
+								echo "La variable de sesión no está definida";
+						}*/
 					}
+					
 				}else{
 						echo "El usuario no está registrado en el sistema."; 
-				}	
+				}
+				
+				//session_start();       //Iniciamos sesión
+
+		
+
+		//echo $_SESSION['temporal'];
 			}	
 		}
 	}
@@ -266,7 +297,7 @@
 		$myquery = "INSERT INTO product (Name, Cost, Price, CategoryID) VALUES ('$nombre', '$coste', '$precio', '$categoria')";
 		$consulta = mysqli_query($conexion, $myquery);
 
-		if(isset($_POST['Anadir']) && isset($nombre) && isset($coste) && isset($precio) && isset($categoria)){      //Si se presiona Enviar
+		if(isset($_POST['anadir']) && isset($nombre) && isset($coste) && isset($precio) && isset($categoria)){      //Si se presiona Enviar
 			if(isset($_POST['Nombre']) && isset($_POST['Coste']) && isset($_POST['Precio']) && isset($_POST['Categoria'])){	  // Si el tamaño de cada uno de los campos es mayor o igual a 1 es que hay texto
 				//if(isset($nombre) && isset($coste) && isset($precio) && isset($categoria)){
 				//if(mysqli_num_rows($consulta) > 0){    //Para saber el número de filas que devuelve. Si es mayor a 0 está bien, si no, la consulta no está bien hecha

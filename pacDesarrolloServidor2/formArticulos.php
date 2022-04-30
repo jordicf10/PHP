@@ -105,6 +105,24 @@ if(isset($_GET['Editar'])){
 			</select>
 		<br><br>
 
+		
+
+
+		<?php if(isset($_POST['Anadir'])): ?>
+			<input type="submit" id="anadir" name="anadir" value="anadir"></input><a href="articulos.php">Volver</a>
+			<?php echo "He entrado en Añadir producto";
+		endif ?>
+		<?php if(isset($_POST['Editar'])): ?>
+			<input type='submit' id='Editar' name='Editar' value='Editar'></input><a href='articulos.php'>Volver</a>
+			<?php echo "He entrado en Editar producto";
+		endif ?>
+		<?php if(isset($_POST['Borrar'])): ?>
+			<input type='submit' id='Borrar' name='Borrar' value='Borrar'></input><a href='articulos.php'>Volver</a>
+			<?php echo "He entrado en Borrar producto";
+		endif ?>
+
+
+
 		<!--AQUEST FUNCIONA!!!!
 		AQUEST FUNCIONA!!!!
 		AQUEST FUNCIONA!!!!
@@ -112,21 +130,16 @@ if(isset($_GET['Editar'])){
 		AQUEST FUNCIONA!!!!
 		AQUEST FUNCIONA!!!!
 		AQUEST FUNCIONA!!!!-->
-
+			
 		<!--<input type='hidden' id='Anadir' name='Anadir' value=''></input><input type="submit" name="Anadir" value="Anadir"><a href='articulos.php'>Volver</a><br><br><br>
 		<input type='hidden' id='Editar' name='Editar' value=''></input><input type="submit" name="Editar" value="Editar"><a href='articulos.php'>Volver</a><br><br><br>
 		<input type='hidden' id='Borrar' name='Borrar' value=''></input><input type="submit" name="Borrar" value="Borrar"><a href='articulos.php'>Volver</a><br><br><br>-->
 
 		<!--<input type='hidden' name='Anadir' value=''></input><input type="submit" name="Anadir" value="Anadir"><a href='articulos.php'>Volver</a>-->
 
-		<input type='submit' id='Anadir' name='Anadir' value='Anadir'> </input><a href='articulos.php'>Volver</a>
+		<!--<input type='submit' id='Anadir' name='Anadir' value='Anadir'> </input><a href='articulos.php'>Volver</a>-->
 		
-
-		
-		
-
-	</form>
-
+</form>
 	
 				<!--if(isset($_POST['Anadir'])){
 					/*echo "'<input type='submit' id='enviar' name='Anadir' value='Añadir'></input><a href='articulos.php'>Volver</a>'";
@@ -162,13 +175,20 @@ if(isset($_GET['Editar'])){
 
 		include "funciones.php";
 
-		if(isset($_POST['Anadir'])){
+		if(isset($_POST['anadir'])){
+			
 			anadirProducto($_POST['Nombre'],$_POST['Coste'],$_POST['Precio'],$_POST['Categoria']);
-			//echo "Producto añadido";
-		}
+			?><a href='articulos.php'>Volver</a><?php
 
+		};
 
-		if(isset($_POST['editar'])){
+		
+			
+
+		/*if(isset($_POST['Editar'])){
+			echo "<form action='formArticulos.php' method='post'>";
+			echo "<input type='submit' id='Editar' name='Editar' value='Editar'> </input><a href='articulos.php'>Volver</a>";
+			echo "</form>";
 			$ID = $_POST['editar'];
 			$campos = mysqli_fetch_assoc(getProducto($ID));
 			//foreach($campos as $columna){
@@ -178,6 +198,18 @@ if(isset($_GET['Editar'])){
 				echo $columna['Price'];
 				echo $columna['CategoryID'];
 			}
+
+			if(isset($_POST['Borrar'])){
+				echo "<form action='formArticulos.php' method='post'>";
+				echo "<input type='submit' id='Borrar' name='Borrar' value='Borrar'> </input><a href='articulos.php'>Volver</a>";
+				echo "</form>";
+				if(isset($_POST['ProductID'])){
+					//$id = $_POST['ProductID'];
+					borrarProducto($ID);
+					echo "Se ha borrado el producto";
+				}
+
+			}*/
 
 			/*}else{
 				$ID = "";
@@ -234,14 +266,9 @@ if(isset($_GET['Editar'])){
 
 				
 
-		if(isset($_GET['Borrar'])){
-			if(isset($_POST['ProductID'])){
-				//$id = $_POST['ProductID'];
-				borrarProducto($ID);
-				echo "Se ha borrado el producto";
-			}
+		
 
-			$id = $_POST['ID'];
+			/*$id = $_POST['ID'];
 			$nombre = $_POST['Name'];
 			$coste = $_POST['Cost'];
 			$precio = $_POST['Price'];
@@ -251,8 +278,8 @@ if(isset($_GET['Editar'])){
 			
 
 
-			if(isset($_GET['Editar'])){
-				$id = $_GET['Editar'];
+			if(isset($_POST['Editar'])){
+				$id = $_POST['Editar'];
 				if($id>0){
 					if(editarProducto($_POST['ID'], $_POST['Name'], $_POST['Cost'], $_POST['Price'], $_POST['CategoryID'])){
 						echo "<h1> Se ha modificado el producto</h1>";
@@ -264,18 +291,18 @@ if(isset($_GET['Editar'])){
 					}
 				}else{
 					echo "No se ha podido modificar";
-				}
+				}*/
 
 				/*if(isset($_POST['ProductID'])){
 					//$id = $_POST['ProductID'];
 					editarProducto();
 					echo "Se ha editado el producto";
 				}*/
-			}
+			//}
 
 
 			
-		}
+		
 	
 	?>
 
